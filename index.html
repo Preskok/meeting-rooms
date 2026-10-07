@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Booking a meeting room at Preskok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4F6F8;
+    --surface: #FFFFFF;
+    --ink: #18212C;
+    --muted: #5A6675;
+    --line: #D6DCE3;
+    --sign: #1D4F91;
+    --sign-ink: #FFFFFF;
+    --sign-soft: #E3ECF7;
+    --ok: #2B7354;
+    --focus: #F2A900;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10151B;
+      --surface: #171E26;
+      --ink: #E7ECF1;
+      --muted: #9AA6B4;
+      --line: #2A3440;
+      --sign: #86AEE6;
+      --sign-ink: #0F1A2A;
+      --sign-soft: #1C2A3C;
+      --ok: #6CC79E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10151B;
+    --surface: #171E26;
+    --ink: #E7ECF1;
+    --muted: #9AA6B4;
+    --line: #2A3440;
+    --sign: #86AEE6;
+    --sign-ink: #0F1A2A;
+    --sign-soft: #1C2A3C;
+    --ok: #6CC79E;
+  }
+
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: inherit; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Overpass", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 56px 24px 72px;
+  }
+
+  /* Header */
+  .head h1 {
+    font-weight: 800;
+    font-size: clamp(2.1rem, 6vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0 0 18px;
+    max-width: 14ch;
+  }
+  .head p {
+    margin: 0;
+    color: var(--muted);
+    max-width: 60ch;
+    font-size: 1.125rem;
+  }
+
+  h2 {
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    margin: 64px 0 20px;
+  }
+
+  /* Steps: a genuine sequence, so numbers carry meaning */
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    counter-reset: step;
+  }
+  .steps li { counter-increment: step; }
+  .steps li::before {
+    content: counter(step);
+    display: block;
+    font-weight: 800;
+    font-size: 2.25rem;
+    line-height: 1;
+    color: var(--sign);
+    margin-bottom: 10px;
+  }
+  .steps h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+  .steps p { margin: 0; color: var(--muted); font-size: 0.98rem; }
+
+  /* Directory: the one bold element, styled like a lobby wayfinding board */
+  .directory {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 6px solid var(--sign);
+    border-radius: 4px;
+  }
+  .floor {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    border-top: 1px solid var(--line);
+  }
+  .floor:first-child { border-top: 0; }
+  .floor-id {
+    padding: 22px 20px;
+    background: var(--sign-soft);
+  }
+  .floor-num {
+    display: block;
+    font-weight: 800;
+    font-size: 3.25rem;
+    line-height: 0.9;
+    color: var(--sign);
+  }
+  .floor-name {
+    display: block;
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .floor-local {
+    display: block;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .rooms { list-style: none; margin: 0; padding: 0; }
+  .room {
+    padding: 18px 22px;
+    border-top: 1px solid var(--line);
+  }
+  .room:first-child { border-top: 0; }
+  .room-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .room-name { font-weight: 800; font-size: 1.15rem; margin: 0; }
+  .room-gloss { color: var(--muted); font-size: 0.95rem; }
+  .seats {
+    flex-shrink: 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+  .room-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin-top: 12px;
+  }
+  .email {
+    font-size: 0.98rem;
+    word-break: break-all;
+  }
+  .btn {
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 3px;
+    padding: 7px 12px 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.2;
+  }
+  .btn-primary {
+    background: var(--sign);
+    color: var(--sign-ink);
+    border: 1px solid var(--sign);
+  }
+  .btn-quiet {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .btn-quiet:hover { border-color: var(--muted); }
+  .btn[aria-disabled="true"] {
+    background: transparent;
+    color: var(--muted);
+    border: 1px dashed var(--line);
+    cursor: default;
+  }
+  .btn.is-done { color: var(--ok); border-color: var(--ok); }
+  .sub-link {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .sub-link a { color: inherit; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* Prose sections */
+  .notes { display: grid; gap: 22px; }
+  .notes h3 { font-size: 1.0625rem; font-weight: 600; margin: 0 0 4px; }
+  .notes p { margin: 0; color: var(--muted); max-width: 62ch; }
+
+  .callout {
+    margin-top: 28px;
+    padding: 16px 18px;
+    border-left: 4px solid var(--sign);
+    background: var(--surface);
+    border-radius: 0 4px 4px 0;
+  }
+  .callout p { margin: 0; max-width: 62ch; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 680px) {
+    .wrap { padding: 36px 18px 56px; }
+    .steps { grid-template-columns: 1fr; gap: 22px; }
+    .floor { grid-template-columns: 1fr; }
+    .floor-id {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 14px 18px;
+    }
+    .floor-num { font-size: 2.25rem; }
+    .floor-name { margin-top: 0; }
+    .room { padding: 16px 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="head">
+    <h1>Booking a meeting room at Preskok</h1>
+    <p>Our meeting rooms in Ljubljana can be booked from any calendar app that sends meeting invitations — Outlook, Google Calendar, Apple Calendar or anything else. Each room has its own email address and replies to bookings automatically.</p>
+  </header>
+
+  <section aria-labelledby="how">
+    <h2 id="how">How it works</h2>
+    <ol class="steps">
+      <li>
+        <h3>Check availability</h3>
+        <p>Open the room's availability link below. It shows when the room is busy, without any meeting details.</p>
+      </li>
+      <li>
+        <h3>Invite the room</h3>
+        <p>Create the meeting in your own calendar and add the room's email address as an attendee, just as you would invite a person.</p>
+      </li>
+      <li>
+        <h3>Wait for the reply</h3>
+        <p>The room answers within a few minutes. An acceptance means the room is yours for that time.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="rooms">
+    <h2 id="rooms">Rooms</h2>
+    <div class="directory" id="directory"></div>
+  </section>
+
+  <section aria-labelledby="after">
+    <h2 id="after">After you've booked</h2>
+    <div class="notes">
+      <div>
+        <h3>If the room declines</h3>
+        <p>The room is already taken at that time, or the meeting is more than 180 days away. Check the availability link and try another time or another room.</p>
+      </div>
+      <div>
+        <h3>Changing the time</h3>
+        <p>Edit the meeting in your calendar and send the update. The room checks the new time and replies again, so look out for that reply.</p>
+      </div>
+      <div>
+        <h3>Cancelling</h3>
+        <p>Cancel the meeting in your calendar and send the cancellation. The room is released straight away so someone else can use it.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <p><strong>Book one room per meeting.</strong> Every room you add to an invitation gets booked. If you added a room by mistake, remove it and send an update, otherwise it stays blocked for nobody.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="subscribe">
+    <h2 id="subscribe">Adding a room to your calendar</h2>
+    <div class="notes">
+      <div>
+        <p>Each room also has a subscribe link that adds its busy times to your own calendar app. Calendar apps refresh subscribed calendars on their own schedule, sometimes only once a day, so always check the availability link before you book.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Questions about a booking? Contact the person at Preskok who invited you.</p>
+  </footer>
+
+</main>
+
+<script>
+  // Fill in html (browser view) and ics (subscribe) from the PowerShell output.
+  const FLOORS = [
+    { n: 0, name: "Ground floor", local: "Pritličje" },
+    { n: 1, name: "Mezzanine",    local: "Mezanin" },
+    { n: 2, name: "Second floor", local: "2. nadstropje" }
+  ];
+
+  const ROOMS = [
+    { floor: 0, name: "Velika sejna soba",  gloss: "Large meeting room",      seats: 20,  email: "velika.sejna.soba@preskok.si",
+      html: "https://outlook.office365.com/owa/calendar/2e6bd1c3c4374f8195180fef62e53f98@preskok.si/b5493acf632e4541a49d9e172d7b402414428229078811072265/calendar.html",
+      ics:  "https://outlook.office365.com/owa/calendar/2e6bd1c3c4374f8195180fef62e53f98@preskok.si/b5493acf632e4541a49d9e172d7b402414428229078811072265/calendar.ics" },
+    { floor: 0, name: "Mala sejna soba",    gloss: "Small meeting room",      seats: 11,  email: "mala.sejna.soba@preskok.si",
+      html: "https://outlook.office365.com/owa/calendar/8317f88e2ca447448fd138afcac19607@preskok.si/76c2d4f8bfde4afb91408446219360fc6545762646944827236/calendar.html",
+      ics:  "https://outlook.office365.com/owa/calendar/8317f88e2ca447448fd138afcac19607@preskok.si/76c2d4f8bfde4afb91408446219360fc6545762646944827236/calendar.ics" },
+    { floor: 0, name: "Skupni prostor",     gloss: "Kitchen and common area", seats: 100, email: "skupni.prostor.dogodek@preskok.si",
+      html: "https://outlook.office365.com/owa/calendar/28b19890cf05411695b45333f21dd02c@preskok.si/7986ee7c412547198c2bbbb3d4860756276467441126521727/calendar.html",
+      ics:  "https://outlook.office365.com/owa/calendar/28b19890cf05411695b45333f21dd02c@preskok.si/7986ee7c412547198c2bbbb3d4860756276467441126521727/calendar.ics" },
+    { floor: 1, name: "Sejna soba mezanin", gloss: "Meeting room",            seats: 11,  email: "sejna.soba.mezanin@preskok.si",
+      html: "https://outlook.office365.com/owa/calendar/3e71854b68444b2490c28c943bb9e24a@preskok.si/5ede68dc94a44e3b8e6e3c97560ef2bc3639531081098934328/calendar.html",
+      ics:  "https://outlook.office365.com/owa/calendar/3e71854b68444b2490c28c943bb9e24a@preskok.si/5ede68dc94a44e3b8e6e3c97560ef2bc3639531081098934328/calendar.ics" },
+    { floor: 2, name: "Terasa",             gloss: "Terrace",                 seats: 50,  email: "terasa@preskok.si",
+      html: "https://outlook.office365.com/owa/calendar/971b8759aee54f21a06c70631c807df8@preskok.si/29ff759e6d134e56a50ca3166d0c2c8d9635288093424227311/calendar.html",
+      ics:  "https://outlook.office365.com/owa/calendar/971b8759aee54f21a06c70631c807df8@preskok.si/29ff759e6d134e56a50ca3166d0c2c8d9635288093424227311/calendar.ics" }
+  ];
+
+  function el(tag, attrs, children) {
+    const node = document.createElement(tag);
+    if (attrs) for (const [k, v] of Object.entries(attrs)) {
+      if (k === "text") node.textContent = v;
+      else node.setAttribute(k, v);
+    }
+    (children || []).forEach(c => c && node.appendChild(c));
+    return node;
+  }
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      try {
+        const ta = el("textarea", { readonly: "", style: "position:absolute;left:-9999px" });
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        ta.remove();
+        return ok;
+      } catch (e2) { return false; }
+    }
+  }
+
+  function roomRow(r) {
+    const copyBtn = el("button", { class: "btn btn-quiet", type: "button", text: "Copy address", "aria-live": "polite" });
+    copyBtn.addEventListener("click", async () => {
+      const ok = await copyText(r.email);
+      copyBtn.textContent = ok ? "Address copied" : "Select the address to copy";
+      copyBtn.classList.toggle("is-done", ok);
+      setTimeout(() => { copyBtn.textContent = "Copy address"; copyBtn.classList.remove("is-done"); }, 2200);
+    });
+
+    const avail = r.html
+      ? el("a", { class: "btn btn-primary", href: r.html, target: "_blank", rel: "noopener", text: "Check availability" })
+      : el("span", { class: "btn", "aria-disabled": "true", text: "Availability link coming soon" });
+
+    const sub = r.ics
+      ? el("span", { class: "sub-link" }, [el("a", { href: r.ics, text: "Subscribe" })])
+      : null;
+
+    return el("li", { class: "room" }, [
+      el("div", { class: "room-top" }, [
+        el("div", {}, [
+          el("p", { class: "room-name", text: r.name }),
+          el("span", { class: "room-gloss", text: r.gloss })
+        ]),
+        el("span", { class: "seats", text: r.seats + (r.seats === 1 ? " seat" : " seats") })
+      ]),
+      el("div", { class: "room-actions" }, [
+        el("span", { class: "email", text: r.email }),
+        copyBtn,
+        avail,
+        sub
+      ])
+    ]);
+  }
+
+  const dir = document.getElementById("directory");
+  FLOORS.forEach(f => {
+    const rooms = ROOMS.filter(r => r.floor === f.n);
+    if (!rooms.length) return;
+    dir.appendChild(el("div", { class: "floor" }, [
+      el("div", { class: "floor-id" }, [
+        el("span", { class: "floor-num", text: String(f.n), "aria-hidden": "true" }),
+        el("span", { class: "floor-name", text: f.name }),
+        el("span", { class: "floor-local", text: f.local })
+      ]),
+      el("ul", { class: "rooms" }, rooms.map(roomRow))
+    ]));
+  });
+</script>
+</body>
+</html>
